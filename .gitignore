@@ -1,0 +1,14 @@
+# Clasp configuration and authentication credentials
+.clasp.json
+.clasprc.json
+
+# Node modules / package files
+node_modules/
+package-lock.json
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
