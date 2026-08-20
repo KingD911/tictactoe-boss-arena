@@ -28,6 +28,7 @@
       --cell-hover: rgba(80, 15, 20, 0.5);
       --btn-primary-bg: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
       --btn-primary-hover: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      --format-badge-bg: rgba(220, 38, 38, 0.2);
     }
 
     /* 2. Blue Arena */
@@ -47,6 +48,7 @@
       --cell-hover: rgba(12, 74, 110, 0.5);
       --btn-primary-bg: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       --btn-primary-hover: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      --format-badge-bg: rgba(2, 132, 199, 0.2);
     }
 
     /* 3. Black Arena */
@@ -66,6 +68,7 @@
       --cell-hover: rgba(39, 39, 42, 0.6);
       --btn-primary-bg: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
       --btn-primary-hover: linear-gradient(135deg, #52525b 0%, #27272a 100%);
+      --format-badge-bg: rgba(82, 82, 91, 0.3);
     }
 
     * {
@@ -112,9 +115,9 @@
       -webkit-backdrop-filter: blur(16px);
       border: 2px solid var(--card-border);
       border-radius: 28px;
-      padding: 26px;
+      padding: 24px;
       width: 100%;
-      max-width: 450px;
+      max-width: 460px;
       box-shadow: var(--card-glow), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
       text-align: center;
       position: relative;
@@ -122,7 +125,7 @@
     }
 
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -133,7 +136,7 @@
     }
 
     .boss-subtitle {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -141,33 +144,108 @@
       font-weight: 600;
     }
 
-    /* Mode Badge */
+    /* Badges Bar */
+    .badges-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
     .mode-badge {
       display: inline-block;
-      margin-top: 8px;
-      padding: 4px 14px;
+      padding: 4px 12px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--o-color);
       letter-spacing: 1px;
+    }
+
+    .format-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--format-badge-bg);
+      border: 1px solid var(--o-color);
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+    }
+
+    .round-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* Target Wins Progress Tracker */
+    .series-tracker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 6px 12px;
+      margin-top: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .series-pips {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .pip {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .pip.filled-x {
+      background: var(--x-color);
+      border-color: var(--x-color);
+      box-shadow: 0 0 8px var(--x-glow);
+    }
+
+    .pip.filled-o {
+      background: var(--o-color);
+      border-color: var(--o-color);
+      box-shadow: 0 0 8px var(--o-glow);
     }
 
     /* Scoreboard */
     .scoreboard {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin: 18px 0;
+      gap: 10px;
+      margin: 14px 0;
     }
 
     .score-card {
       background: rgba(0, 0, 0, 0.4);
       border: 2px solid var(--card-border);
       border-radius: 16px;
-      padding: 10px 8px;
+      padding: 8px 6px;
       transition: all 0.25s ease;
     }
 
@@ -184,17 +262,20 @@
     }
 
     .score-label {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .score-card.player-x .score-label { color: var(--x-color); }
     .score-card.player-o .score-label { color: var(--o-color); }
 
     .score-value {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       font-weight: 700;
       margin-top: 2px;
     }
@@ -203,11 +284,11 @@
     .status-banner {
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--card-border);
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 14px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       min-height: 48px;
       display: flex;
       align-items: center;
@@ -219,19 +300,19 @@
     .board {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 10px;
       aspect-ratio: 1 / 1;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .cell {
       background: var(--cell-bg);
       border: 2px solid var(--card-border);
-      border-radius: 20px;
+      border-radius: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 3.4rem;
+      font-size: 3.2rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -276,19 +357,19 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Buttons */
+    /* Controls Grid */
     .controls {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
 
     .btn {
-      flex: 1;
-      padding: 12px 10px;
-      font-size: 0.88rem;
+      padding: 10px 8px;
+      font-size: 0.84rem;
       font-weight: 700;
       border: none;
-      border-radius: 14px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
@@ -319,6 +400,20 @@
       background: rgba(255, 255, 255, 0.1);
       color: var(--text-main);
       transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.25);
+      color: #fca5a5;
+      border: 1.5px solid rgba(239, 68, 68, 0.5);
+    }
+
+    .btn-danger:hover {
+      background: rgba(220, 38, 38, 0.45);
+      color: #ffffff;
+      border-color: #ef4444;
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
     }
 
     .btn-toggle-group {
@@ -360,6 +455,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
+      padding: 16px;
     }
 
     .modal-overlay.active {
@@ -371,10 +467,10 @@
       background: var(--card-bg);
       border: 2.5px solid var(--card-border);
       border-radius: 28px;
-      padding: 28px 22px;
+      padding: 26px 20px;
       text-align: center;
-      max-width: 380px;
-      width: 90%;
+      max-width: 400px;
+      width: 100%;
       box-shadow: var(--card-glow), 0 0 45px rgba(0, 0, 0, 0.8);
       transform: scale(0.85);
       transition: transform 0.3s ease;
@@ -385,12 +481,12 @@
     }
 
     .modal-title {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--o-color);
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .input-code {
@@ -406,6 +502,52 @@
       letter-spacing: 8px;
       margin: 14px 0;
       outline: none;
+    }
+
+    /* Format Option Cards */
+    .format-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .format-card {
+      padding: 14px 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--card-border);
+      border-radius: 16px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .format-card:hover {
+      border-color: var(--o-color);
+      transform: translateY(-2px);
+      background: rgba(251, 191, 36, 0.1);
+      box-shadow: 0 0 16px var(--o-glow);
+    }
+
+    .format-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .format-details h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .format-details p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.2;
     }
 
     /* Dropdown Theme Container for First Popup */
@@ -535,14 +677,39 @@
 
     /* Victory Mascot SVG */
     .dancer-svg {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       animation: danceGroove 0.6s infinite alternate ease-in-out;
     }
 
     @keyframes danceGroove {
       0% { transform: translateY(0) rotate(-12deg) scale(1); }
-      100% { transform: translateY(-16px) rotate(12deg) scale(1.1); }
+      100% { transform: translateY(-16px) rotate(12deg) scale(1.12); }
+    }
+
+    .grand-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+    }
+
+    .score-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin: 12px 0 16px 0;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     #confetti-canvas {
@@ -552,17 +719,62 @@
       pointer-events: none;
       z-index: 99;
     }
+
+    /* Toast Notification System */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.88);
+      border: 2px solid var(--card-border);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 200;
+    }
+
+    .toast-container.active {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
   </style>
 </head>
 <body data-theme="red">
 
   <canvas id="confetti-canvas"></canvas>
+  <div id="toast" class="toast-container"></div>
 
   <div class="game-container">
     <header>
       <h1>TIC TAC TOE</h1>
-      <div class="boss-subtitle">⚡ Final Boss Battle ⚡</div>
-      <div class="mode-badge" id="mode-badge">LOCAL MATCH</div>
+      <div class="boss-subtitle">⚡ Final Boss Arena ⚡</div>
+      
+      <!-- Badges Bar -->
+      <div class="badges-bar">
+        <div class="mode-badge" id="mode-badge">LOCAL MATCH</div>
+        <div class="format-badge" id="format-badge">🥉 BEST OF 3</div>
+        <div class="round-badge" id="round-badge">ROUND 1</div>
+      </div>
+
+      <!-- Target Wins Progress Tracker -->
+      <div class="series-tracker" id="series-tracker">
+        <span id="tracker-x-label">X: 0</span>
+        <div class="series-pips" id="pips-container">
+          <div class="pip" id="pip-x-1"></div>
+          <div class="pip" id="pip-x-2"></div>
+          <span style="font-size: 0.72rem; margin: 0 4px; color: var(--o-color);">VS</span>
+          <div class="pip" id="pip-o-1"></div>
+          <div class="pip" id="pip-o-2"></div>
+        </div>
+        <span id="tracker-o-label">O: 0</span>
+      </div>
     </header>
 
     <!-- Scoreboard -->
@@ -598,14 +810,18 @@
       <div class="cell" data-index="8"></div>
     </div>
 
-    <!-- Controls -->
+    <!-- Controls (2x2 grid with End Match support) -->
     <div class="controls">
       <button class="btn btn-primary" id="btn-next">🔄 Next Round</button>
+      <button class="btn btn-danger" id="btn-end-match">🛑 End Match</button>
       <button class="btn btn-secondary" id="btn-mode">🎮 Mode</button>
       <button class="btn btn-secondary" id="btn-theme">🎨 Themes</button>
-      <button class="btn btn-secondary" id="btn-reset">Reset Score</button>
     </div>
   </div>
+
+  <!-- ==========================================
+       MODALS SYSTEM
+       ========================================== -->
 
   <!-- MODAL 1: MODE SELECTION & INITIAL THEME SELECTOR -->
   <div class="modal-overlay active" id="modal-start">
@@ -629,14 +845,50 @@
     </div>
   </div>
 
+  <!-- MODAL 1B: MATCH FORMAT SELECTION (BO3, BO5, INFINITY) -->
+  <div class="modal-overlay" id="modal-format">
+    <div class="modal-card">
+      <div class="modal-title">CHOOSE MATCH FORMAT</div>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 10px;">Select series length and victory rules:</p>
+
+      <div class="format-grid">
+        <div class="format-card" id="btn-format-bo3">
+          <div class="format-icon">🥉</div>
+          <div class="format-details">
+            <h3>Best of 3</h3>
+            <p>First player to win 2 rounds wins the match series.</p>
+          </div>
+        </div>
+
+        <div class="format-card" id="btn-format-bo5">
+          <div class="format-icon">🥇</div>
+          <div class="format-details">
+            <h3>Best of 5</h3>
+            <p>First player to win 3 rounds wins the match series.</p>
+          </div>
+        </div>
+
+        <div class="format-card" id="btn-format-infinity">
+          <div class="format-icon">♾️</div>
+          <div class="format-details">
+            <h3>Infinity Mode</h3>
+            <p>Endless battle! Play as many rounds as you want and end anytime.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" id="btn-format-back" style="width: 100%; padding: 12px;">← Back to Modes</button>
+    </div>
+  </div>
+
   <!-- MODAL 2: LOCAL STARTER PROMPT -->
   <div class="modal-overlay" id="modal-local-starter">
     <div class="modal-card">
       <div class="modal-title">WHO STARTS ROUND 1?</div>
       <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">The starting player will automatically alternate each subsequent round!</p>
       <div style="display: flex; gap: 12px;">
-        <button class="btn btn-primary" id="btn-start-x" style="padding: 16px;">Player X Starts</button>
-        <button class="btn btn-primary" id="btn-start-o" style="background: linear-gradient(135deg, #d97706, #b45309); padding: 16px;">Player O Starts</button>
+        <button class="btn btn-primary" id="btn-start-x" style="padding: 16px; flex: 1;">Player X Starts</button>
+        <button class="btn btn-primary" id="btn-start-o" style="background: linear-gradient(135deg, #d97706, #b45309); padding: 16px; flex: 1;">Player O Starts</button>
       </div>
     </div>
   </div>
@@ -657,8 +909,8 @@
       <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
         <button class="btn btn-primary" id="btn-ai-coin" style="padding: 12px;">🪙 Animated Coin Flip</button>
         <div style="display: flex; gap: 10px;">
-          <button class="btn btn-secondary" id="btn-ai-start-x" style="padding: 12px;">Player X Starts</button>
-          <button class="btn btn-secondary" id="btn-ai-start-o" style="padding: 12px;">Player O Starts</button>
+          <button class="btn btn-secondary" id="btn-ai-start-x" style="padding: 12px; flex: 1;">Player X Starts</button>
+          <button class="btn btn-secondary" id="btn-ai-start-o" style="padding: 12px; flex: 1;">Player O Starts</button>
         </div>
       </div>
     </div>
@@ -730,27 +982,270 @@
     </div>
   </div>
 
-  <!-- MODAL 7: VICTORY DANCE CELEBRATION -->
-  <div class="modal-overlay" id="modal-victory">
+  <!-- MODAL 7A: INTERMEDIATE ROUND VICTORY MODAL -->
+  <div class="modal-overlay" id="modal-round-victory">
     <div class="modal-card">
-      <div class="modal-title" id="victory-text">PLAYER X WINS!</div>
+      <div class="modal-title" id="round-victory-title">ROUND 1 WON!</div>
       
-      <div style="height: 120px; display: flex; justify-content: center; align-items: center;">
-        <svg class="dancer-svg" viewBox="0 0 100 100">
-          <path d="M35,22 L42,30 L50,18 L58,30 L65,22 L62,35 L38,35 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
-          <g id="dancer-body"></g>
+      <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+        <svg class="dancer-svg" viewBox="0 0 100 100" style="width: 80px; height: 80px;">
+          <g id="round-dancer-body"></g>
           <circle cx="42" cy="48" r="3" fill="#ffffff" />
           <circle cx="58" cy="48" r="3" fill="#ffffff" />
           <path d="M42,58 Q50,66 58,58" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
         </svg>
       </div>
 
-      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 18px;">Doing the Victory Dance! 🕺✨</p>
-      <button class="btn btn-primary" id="btn-victory-next" style="width: 100%;">Play Next Round ⚔️</button>
+      <div class="score-breakdown" id="round-score-breakdown">
+        <span style="color: var(--x-color);" id="round-breakdown-x">Player X: 1</span>
+        <span style="color: var(--text-muted);">|</span>
+        <span style="color: var(--o-color);" id="round-breakdown-o">Player O: 0</span>
+      </div>
+
+      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 16px;" id="round-victory-sub">Series target: First to 2 wins</p>
+      <button class="btn btn-primary" id="btn-round-next" style="width: 100%; padding: 14px;">Next Round ⚔️</button>
     </div>
   </div>
 
+  <!-- MODAL 7B: GRAND MATCH VICTORY DANCE (SERIES CHAMPION) -->
+  <div class="modal-overlay" id="modal-grand-victory">
+    <div class="modal-card">
+      <div class="grand-badge">👑 SERIES CHAMPION 👑</div>
+      <div class="modal-title" id="grand-victory-title" style="font-size: 1.7rem; color: #fbbf24;">PLAYER X WINS!</div>
+      
+      <div style="height: 120px; display: flex; justify-content: center; align-items: center; position: relative;">
+        <svg class="dancer-svg" viewBox="0 0 100 100">
+          <path d="M35,22 L42,30 L50,18 L58,30 L65,22 L62,35 L38,35 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+          <g id="grand-dancer-body"></g>
+          <circle cx="42" cy="48" r="3" fill="#ffffff" />
+          <circle cx="58" cy="48" r="3" fill="#ffffff" />
+          <path d="M42,58 Q50,66 58,58" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="score-breakdown">
+        <span style="color: var(--x-color);" id="grand-score-x">Player X: 2</span>
+        <span style="color: var(--text-muted);">•</span>
+        <span style="color: var(--o-color);" id="grand-score-o">Player O: 1</span>
+        <span style="color: var(--text-muted);" id="grand-score-ties">(0 Ties)</span>
+      </div>
+
+      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 18px;" id="grand-victory-sub">Doing the Grand Champion Victory Dance! 🕺✨</p>
+      
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-primary" id="btn-grand-rematch" style="flex: 1; padding: 13px;">⚔️ Rematch</button>
+        <button class="btn btn-secondary" id="btn-grand-menu" style="flex: 1; padding: 13px;">🎮 Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: LOCAL / AI INFINITY END MATCH CONFIRMATION -->
+  <div class="modal-overlay" id="modal-confirm-end">
+    <div class="modal-card">
+      <div class="modal-title">🛑 END MATCH SERIES?</div>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">Are you sure you want to conclude this match? The final series scores will be evaluated to declare the champion!</p>
+      
+      <div class="score-breakdown">
+        <span style="color: var(--x-color);" id="confirm-score-x">X: 0</span>
+        <span style="color: var(--text-muted);">|</span>
+        <span style="color: var(--o-color);" id="confirm-score-o">O: 0</span>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 16px;">
+        <button class="btn btn-danger" id="btn-confirm-end-yes" style="flex: 1; padding: 13px;">✅ End Match</button>
+        <button class="btn btn-secondary" id="btn-confirm-end-no" style="flex: 1; padding: 13px;">Keep Playing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 9: ONLINE END MATCH OPPONENT PROPOSAL -->
+  <div class="modal-overlay" id="modal-online-end-request">
+    <div class="modal-card">
+      <div class="modal-title">🛑 END MATCH PROPOSAL</div>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Your opponent has requested to conclude the series and tally the final score!</p>
+      
+      <div class="score-breakdown">
+        <span style="color: var(--x-color);" id="online-req-score-x">Player X: 0</span>
+        <span style="color: var(--text-muted);">|</span>
+        <span style="color: var(--o-color);" id="online-req-score-o">Player O: 0</span>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 16px;">
+        <button class="btn btn-primary" id="btn-online-end-agree" style="flex: 1; padding: 13px;">✅ Agree & End</button>
+        <button class="btn btn-secondary" id="btn-online-end-decline" style="flex: 1; padding: 13px;">❌ Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       JAVASCRIPT GAME ENGINE
+       ========================================== -->
   <script>
+    // ==========================================
+    // 0. STANDALONE DEV FALLBACK MOCK (FOR LOCAL SERVE PREVIEWS)
+    // ==========================================
+    if (typeof google === 'undefined' || !google.script || !google.script.run) {
+      window.google = {
+        script: {
+          run: {
+            withSuccessHandler: function(fn) {
+              this._successHandler = fn;
+              return this;
+            },
+            createGameRoom: function(initialStarter, matchFormat) {
+              const code = Math.floor(1000 + Math.random() * 9000).toString();
+              const starter = initialStarter === "O" ? "O" : "X";
+              const format = (matchFormat === "BO5" || matchFormat === "INFINITY") ? matchFormat : "BO3";
+              const targetWins = format === "BO3" ? 2 : (format === "BO5" ? 3 : null);
+              const room = {
+                code: code,
+                status: "waiting",
+                matchFormat: format,
+                targetWins: targetWins,
+                currentRound: 1,
+                p1: "X",
+                p2: null,
+                board: ["","","","","","","","",""],
+                starter: starter,
+                turn: starter,
+                scores: { X: 0, O: 0, Ties: 0 },
+                winner: null,
+                winningLine: [],
+                matchWinner: null,
+                endMatchRequest: null,
+                coinResult: null
+              };
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) {
+                setTimeout(() => this._successHandler({ success: true, code: code, playerSymbol: "X", roomState: room }), 50);
+              }
+            },
+            joinGameRoom: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) {
+                if (this._successHandler) setTimeout(() => this._successHandler({ success: false, message: "Room not found in local mock!" }), 50);
+                return;
+              }
+              const room = JSON.parse(raw);
+              const coin = Math.random() < 0.5 ? "X" : "O";
+              room.p2 = "O";
+              room.status = "flipping";
+              room.coinResult = coin;
+              room.starter = coin;
+              room.turn = coin;
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) setTimeout(() => this._successHandler({ success: true, code: code, playerSymbol: "O", roomState: room }), 50);
+            },
+            startPlaying: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (raw) {
+                const room = JSON.parse(raw);
+                room.status = "playing";
+                sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+                if (this._successHandler) this._successHandler({ success: true, roomState: room });
+              }
+            },
+            getGameRoomState: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (raw && this._successHandler) {
+                this._successHandler({ success: true, roomState: JSON.parse(raw) });
+              }
+            },
+            makeMultiplayerMove: function(code, symbol, index) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              room.board[index] = symbol;
+              const combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+              let won = false; let line = [];
+              for (let c of combos) {
+                if (room.board[c[0]] && room.board[c[0]] === room.board[c[1]] && room.board[c[0]] === room.board[c[2]]) {
+                  won = true; line = c; break;
+                }
+              }
+              if (won) {
+                room.winner = symbol;
+                room.winningLine = line;
+                room.scores[symbol]++;
+                if (room.targetWins && room.scores[symbol] >= room.targetWins) {
+                  room.status = "match_won";
+                  room.matchWinner = symbol;
+                } else {
+                  room.status = "won";
+                }
+              } else if (!room.board.includes("")) {
+                room.status = "tie";
+                room.scores.Ties++;
+              } else {
+                room.turn = symbol === "X" ? "O" : "X";
+              }
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            },
+            resetMultiplayerRound: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              const next = room.starter === "X" ? "O" : "X";
+              room.board = ["","","","","","","","",""];
+              room.status = "playing";
+              room.starter = next;
+              room.turn = next;
+              room.winner = null;
+              room.winningLine = [];
+              room.currentRound = (room.currentRound || 1) + 1;
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            },
+            requestEndMatch: function(code, symbol) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              room.endMatchRequest = { requestedBy: symbol, status: "pending" };
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            },
+            respondEndMatch: function(code, symbol, agreed) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              if (agreed) {
+                room.status = "match_ended";
+                room.matchWinner = room.scores.X > room.scores.O ? "X" : (room.scores.O > room.scores.X ? "O" : "TIE");
+                room.endMatchRequest = { requestedBy: symbol, status: "agreed" };
+              } else {
+                room.endMatchRequest = { requestedBy: symbol, status: "declined" };
+              }
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            },
+            clearEndMatchRequest: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              room.endMatchRequest = null;
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            },
+            resetMultiplayerScores: function(code) {
+              const raw = sessionStorage.getItem("ROOM_" + code);
+              if (!raw) return;
+              const room = JSON.parse(raw);
+              room.scores = { X: 0, O: 0, Ties: 0 };
+              room.board = ["","","","","","","","",""];
+              room.status = "playing";
+              room.winner = null;
+              room.matchWinner = null;
+              room.endMatchRequest = null;
+              room.currentRound = 1;
+              sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
+              if (this._successHandler) this._successHandler({ success: true, roomState: room });
+            }
+          }
+        }
+      };
+    }
+
     // ==========================================
     // 1. SOUND SYNTHESIZER (Web Audio API)
     // ==========================================
@@ -781,14 +1276,31 @@
       }
     }
     function soundWin() {
-      const notes = [392.00, 523.25, 659.25, 783.99, 1046.50];
-      notes.forEach((freq, idx) => setTimeout(() => playTone(freq, 'triangle', 0.28), idx * 100));
+      const notes = [392.00, 523.25, 659.25, 783.99];
+      notes.forEach((freq, idx) => setTimeout(() => playTone(freq, 'triangle', 0.22), idx * 100));
+    }
+    function soundGrandWin() {
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50, 1318.51];
+      notes.forEach((freq, idx) => setTimeout(() => playTone(freq, 'triangle', 0.35), idx * 110));
+    }
+
+    // Toast Engine
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), duration);
     }
 
     // ==========================================
     // 2. STATE MANAGEMENT
     // ==========================================
     let gameMode = "LOCAL"; // "LOCAL", "ONLINE", "AI"
+    let matchFormat = "BO3"; // "BO3", "BO5", "INFINITY"
+    let targetWins = 2; // 2 for BO3, 3 for BO5, null for INFINITY
+    let currentRound = 1;
+    let matchOver = false;
+
     let aiDifficulty = "normal"; // "normal" or "hard"
     let humanSymbol = "X";
     let aiSymbol = "O";
@@ -813,6 +1325,13 @@
     const cells = document.querySelectorAll('.cell');
     const statusBanner = document.getElementById('status-banner');
     const modeBadge = document.getElementById('mode-badge');
+    const formatBadge = document.getElementById('format-badge');
+    const roundBadge = document.getElementById('round-badge');
+    const seriesTracker = document.getElementById('series-tracker');
+    const pipsContainer = document.getElementById('pips-container');
+    const trackerXLabel = document.getElementById('tracker-x-label');
+    const trackerOLabel = document.getElementById('tracker-o-label');
+
     const cardX = document.getElementById('card-x');
     const cardO = document.getElementById('card-o');
     const labelX = document.getElementById('label-x');
@@ -821,19 +1340,110 @@
     const scoreOEl = document.getElementById('score-o');
     const scoreTieEl = document.getElementById('score-tie');
     const themeSelectFirst = document.getElementById('theme-select-first');
+    const btnEndMatch = document.getElementById('btn-end-match');
 
     // Modals
     const modalStart = document.getElementById('modal-start');
+    const modalFormat = document.getElementById('modal-format');
     const modalLocalStarter = document.getElementById('modal-local-starter');
     const modalAiSetup = document.getElementById('modal-ai-setup');
     const modalOnlineSetup = document.getElementById('modal-online-setup');
     const modalWaiting = document.getElementById('modal-waiting');
     const modalCointoss = document.getElementById('modal-cointoss');
     const modalTheme = document.getElementById('modal-theme');
-    const modalVictory = document.getElementById('modal-victory');
+    const modalRoundVictory = document.getElementById('modal-round-victory');
+    const modalGrandVictory = document.getElementById('modal-grand-victory');
+    const modalConfirmEnd = document.getElementById('modal-confirm-end');
+    const modalOnlineEndRequest = document.getElementById('modal-online-end-request');
 
     // ==========================================
-    // 3. MATCH MOVES & LOGIC
+    // 3. UI SYNC & FORMAT ENGINE
+    // ==========================================
+    function updateFormatDisplay() {
+      if (matchFormat === "BO3") {
+        formatBadge.innerText = "🥉 BEST OF 3";
+        targetWins = 2;
+      } else if (matchFormat === "BO5") {
+        formatBadge.innerText = "🥇 BEST OF 5";
+        targetWins = 3;
+      } else {
+        formatBadge.innerText = "♾️ INFINITY";
+        targetWins = null;
+      }
+
+      roundBadge.innerText = `ROUND ${currentRound}`;
+      updateSeriesTracker();
+
+      if (matchFormat === "INFINITY") {
+        btnEndMatch.style.display = "flex";
+        btnEndMatch.innerText = "🛑 End Match";
+      } else {
+        btnEndMatch.style.display = "flex";
+        btnEndMatch.innerText = "🛑 Forfeit";
+      }
+    }
+
+    function updateSeriesTracker() {
+      trackerXLabel.innerText = `X: ${scores.X}`;
+      trackerOLabel.innerText = `O: ${scores.O}`;
+
+      if (matchFormat === "INFINITY") {
+        pipsContainer.innerHTML = `<span style="font-size: 0.76rem; color: var(--o-color); font-weight:700;">ENDLESS MATCH</span>`;
+        return;
+      }
+
+      const totalPips = targetWins || 2;
+      let html = "";
+
+      // Player X pips
+      for (let i = 1; i <= totalPips; i++) {
+        const filled = scores.X >= i ? " filled-x" : "";
+        html += `<div class="pip${filled}"></div>`;
+      }
+
+      html += `<span style="font-size: 0.72rem; margin: 0 4px; color: var(--o-color);">VS</span>`;
+
+      // Player O pips
+      for (let i = 1; i <= totalPips; i++) {
+        const filled = scores.O >= i ? " filled-o" : "";
+        html += `<div class="pip${filled}"></div>`;
+      }
+
+      pipsContainer.innerHTML = html;
+    }
+
+    function updateScoreboard() {
+      scoreXEl.innerText = scores.X;
+      scoreOEl.innerText = scores.O;
+      scoreTieEl.innerText = scores.Ties;
+      updateSeriesTracker();
+    }
+
+    function updateTurnIndicator() {
+      if (gameMode === "ONLINE") {
+        const myTurnStr = currentPlayer === myPlayerSymbol ? " (YOUR TURN)" : " (WAITING)";
+        statusBanner.innerText = `Player ${currentPlayer}'s Turn${myTurnStr}`;
+      } else if (gameMode === "AI") {
+        if (currentPlayer === humanSymbol) {
+          statusBanner.innerText = `Your Turn (${humanSymbol})`;
+        } else {
+          statusBanner.innerText = `🤖 Computer's Turn (${aiSymbol})`;
+        }
+      } else {
+        statusBanner.innerText = `Player ${currentPlayer}'s Turn`;
+      }
+
+      if (currentPlayer === 'X') {
+        cardX.classList.add('active-x');
+        cardO.classList.remove('active-o');
+      } else {
+        cardO.classList.add('active-o');
+        cardX.classList.remove('active-x');
+      }
+    }
+
+    // ==========================================
+    // 4. MATCH MOVES & LOCAL GAMEPLAY
     // ==========================================
     function handleCellClick(e) {
       const index = parseInt(e.target.getAttribute('data-index'), 10);
@@ -893,10 +1503,22 @@
         updateScoreboard();
 
         const winnerLabel = (gameMode === "AI" && currentPlayer === aiSymbol) ? "Computer" : `Player ${currentPlayer}`;
-        statusBanner.innerText = `🎉 ${winnerLabel} Wins!`;
+
+        // Check if Grand Match Win condition is achieved
+        if (targetWins && scores[currentPlayer] >= targetWins) {
+          matchOver = true;
+          statusBanner.innerText = `👑 ${winnerLabel} WINS THE MATCH!`;
+          soundGrandWin();
+          launchConfetti();
+          setTimeout(() => showGrandVictoryModal(currentPlayer), 450);
+          return;
+        }
+
+        // Intermediate Round Win
+        statusBanner.innerText = `🎉 ${winnerLabel} Wins Round ${currentRound}!`;
         soundWin();
         launchConfetti();
-        setTimeout(() => showVictoryDanceModal(currentPlayer), 400);
+        setTimeout(() => showRoundVictoryModal(currentPlayer), 450);
         return;
       }
 
@@ -904,7 +1526,7 @@
         isGameActive = false;
         scores.Ties++;
         updateScoreboard();
-        statusBanner.innerText = "🤝 It's a Tie!";
+        statusBanner.innerText = `🤝 Round ${currentRound} is a Tie!`;
         soundTie();
         return;
       }
@@ -926,16 +1548,25 @@
       isGameActive = true;
       cells.forEach(cell => { cell.innerText = ""; cell.className = "cell"; });
       updateTurnIndicator();
+      updateFormatDisplay();
     }
 
     function resetLocalNextRound() {
-      // Alternate starting player for next round
+      if (matchOver) {
+        showToast("Match has finished! Start a new series.");
+        return;
+      }
+
+      // Increment round counter and alternate starting player for next round
+      currentRound++;
       roundStarter = roundStarter === "X" ? "O" : "X";
       currentPlayer = roundStarter;
 
       board = ["", "", "", "", "", "", "", "", ""];
       isGameActive = true;
       cells.forEach(cell => { cell.innerText = ""; cell.className = "cell"; });
+      
+      updateFormatDisplay();
       updateTurnIndicator();
 
       if (gameMode === "AI" && currentPlayer === aiSymbol) {
@@ -943,37 +1574,21 @@
       }
     }
 
-    function updateTurnIndicator() {
-      if (gameMode === "ONLINE") {
-        const myTurnStr = currentPlayer === myPlayerSymbol ? " (YOUR TURN)" : " (WAITING)";
-        statusBanner.innerText = `Player ${currentPlayer}'s Turn${myTurnStr}`;
-      } else if (gameMode === "AI") {
-        if (currentPlayer === humanSymbol) {
-          statusBanner.innerText = `Your Turn (${humanSymbol})`;
-        } else {
-          statusBanner.innerText = `🤖 Computer's Turn (${aiSymbol})`;
-        }
-      } else {
-        statusBanner.innerText = `Player ${currentPlayer}'s Turn`;
-      }
-
-      if (currentPlayer === 'X') {
-        cardX.classList.add('active-x');
-        cardO.classList.remove('active-o');
-      } else {
-        cardO.classList.add('active-o');
-        cardX.classList.remove('active-x');
-      }
-    }
-
-    function updateScoreboard() {
-      scoreXEl.innerText = scores.X;
-      scoreOEl.innerText = scores.O;
-      scoreTieEl.innerText = scores.Ties;
+    function resetEntireMatchState() {
+      scores.X = 0;
+      scores.O = 0;
+      scores.Ties = 0;
+      currentRound = 1;
+      matchOver = false;
+      board = ["", "", "", "", "", "", "", "", ""];
+      isGameActive = false;
+      cells.forEach(cell => { cell.innerText = ""; cell.className = "cell"; });
+      updateScoreboard();
+      updateFormatDisplay();
     }
 
     // ==========================================
-    // 4. AI ALGORITHM & ENGINE (Minimax + Heuristic)
+    // 5. AI ENGINE (MINIMAX + STRATEGIC VARIANCE)
     // ==========================================
     function checkBoardWinner(b) {
       for (let combo of WINNING_COMBOS) {
@@ -1089,6 +1704,8 @@
       labelO.innerText = "PLAYER O (COMP)";
       modeBadge.innerText = `VS COMPUTER (${aiDifficulty.toUpperCase()})`;
 
+      resetEntireMatchState();
+
       if (starterChoice === "coin") {
         const coinResult = Math.random() < 0.5 ? "X" : "O";
         triggerCoinTossAnimation(coinResult, () => {
@@ -1106,7 +1723,7 @@
     }
 
     // ==========================================
-    // 5. ANIMATED COIN TOSS ENGINE
+    // 6. ANIMATED COIN TOSS ENGINE
     // ==========================================
     function triggerCoinTossAnimation(starterSymbol, onComplete) {
       modalCointoss.classList.add('active');
@@ -1139,7 +1756,7 @@
     }
 
     // ==========================================
-    // 6. ONLINE MATCH POLLING ENGINE
+    // 7. ONLINE MULTIPLAYER POLLING ENGINE
     // ==========================================
     function startOnlinePolling() {
       if (pollInterval) clearInterval(pollInterval);
@@ -1155,6 +1772,7 @@
     }
 
     function updateUIFromRoomState(state) {
+      // Coin Toss Trigger
       if (state.status === "flipping" && (modalWaiting.classList.contains('active') || modalOnlineSetup.classList.contains('active'))) {
         modalWaiting.classList.remove('active');
         modalOnlineSetup.classList.remove('active');
@@ -1165,6 +1783,13 @@
         });
       }
 
+      // Format & Round sync
+      matchFormat = state.matchFormat || matchFormat;
+      targetWins = state.targetWins || targetWins;
+      currentRound = state.currentRound || currentRound;
+      updateFormatDisplay();
+
+      // Board & Scores sync
       board = state.board;
       cells.forEach((cell, idx) => {
         const val = board[idx];
@@ -1180,26 +1805,64 @@
       currentPlayer = state.turn;
       roundStarter = state.starter;
 
+      // Check online end match proposals
+      if (state.endMatchRequest && state.endMatchRequest.status === "pending") {
+        if (state.endMatchRequest.requestedBy !== myPlayerSymbol) {
+          document.getElementById('online-req-score-x').innerText = `Player X: ${scores.X}`;
+          document.getElementById('online-req-score-o').innerText = `Player O: ${scores.O}`;
+          modalOnlineEndRequest.classList.add('active');
+        }
+      } else if (state.endMatchRequest && state.endMatchRequest.status === "declined") {
+        if (state.endMatchRequest.requestedBy === myPlayerSymbol) {
+          showToast("Opponent declined end match agreement. Game continues!");
+          google.script.run.clearEndMatchRequest(roomCode);
+        }
+        modalOnlineEndRequest.classList.remove('active');
+      }
+
+      // Status conditions
       if (state.status === "playing") {
         isGameActive = true;
         updateTurnIndicator();
       } else if (state.status === "won") {
         isGameActive = false;
         state.winningLine.forEach(idx => cells[idx].classList.add('win-highlight'));
-        statusBanner.innerText = `🎉 Player ${state.winner} Wins!`;
+        statusBanner.innerText = `🎉 Player ${state.winner} Wins Round ${currentRound}!`;
+      } else if (state.status === "match_won" || state.status === "match_ended") {
+        isGameActive = false;
+        matchOver = true;
+        modalOnlineEndRequest.classList.remove('active');
+        if (!modalGrandVictory.classList.contains('active')) {
+          showGrandVictoryModal(state.matchWinner, state.status === "match_ended");
+        }
       } else if (state.status === "tie") {
         isGameActive = false;
-        statusBanner.innerText = "🤝 It's a Tie!";
+        statusBanner.innerText = `🤝 Round ${currentRound} is a Tie!`;
       }
     }
 
-    function showVictoryDanceModal(winner) {
-      const victoryText = document.getElementById('victory-text');
-      const dancerBody = document.getElementById('dancer-body');
-      
-      const winnerLabel = (gameMode === "AI" && winner === aiSymbol) ? "COMPUTER WINS!" : `PLAYER ${winner} WINS!`;
-      victoryText.innerText = winnerLabel;
-      victoryText.style.color = winner === 'X' ? 'var(--x-color)' : 'var(--o-color)';
+    // ==========================================
+    // 8. VICTORY DANCE MODALS & CELEBRATIONS
+    // ==========================================
+    function showRoundVictoryModal(winner) {
+      const title = document.getElementById('round-victory-title');
+      const dancerBody = document.getElementById('round-dancer-body');
+      const sub = document.getElementById('round-victory-sub');
+      const breakdownX = document.getElementById('round-breakdown-x');
+      const breakdownO = document.getElementById('round-breakdown-o');
+
+      const winnerLabel = (gameMode === "AI" && winner === aiSymbol) ? "COMPUTER" : `PLAYER ${winner}`;
+      title.innerText = `ROUND ${currentRound} WON!`;
+      title.style.color = winner === 'X' ? 'var(--x-color)' : 'var(--o-color)';
+
+      breakdownX.innerText = `Player X: ${scores.X}`;
+      breakdownO.innerText = `Player O: ${scores.O}`;
+
+      if (targetWins) {
+        sub.innerText = `Series Target: First to ${targetWins} Wins • ${winnerLabel} Leads!`;
+      } else {
+        sub.innerText = `Infinity Battle • ${winnerLabel} scores a point!`;
+      }
 
       if (winner === 'X') {
         dancerBody.innerHTML = `<path d="M30,35 L70,75 M70,35 L30,75" stroke="#ff2a4b" stroke-width="14" stroke-linecap="round" />`;
@@ -1207,15 +1870,55 @@
         dancerBody.innerHTML = `<circle cx="50" cy="55" r="20" stroke="#fbbf24" stroke-width="12" fill="none" />`;
       }
 
-      modalVictory.classList.add('active');
+      modalRoundVictory.classList.add('active');
+    }
+
+    function showGrandVictoryModal(winner, isForcedEnd = false) {
+      modalRoundVictory.classList.remove('active');
+      modalConfirmEnd.classList.remove('active');
+      modalOnlineEndRequest.classList.remove('active');
+
+      const grandTitle = document.getElementById('grand-victory-title');
+      const dancerBody = document.getElementById('grand-dancer-body');
+      const grandScoreX = document.getElementById('grand-score-x');
+      const grandScoreO = document.getElementById('grand-score-o');
+      const grandScoreTies = document.getElementById('grand-score-ties');
+      const grandSub = document.getElementById('grand-victory-sub');
+
+      grandScoreX.innerText = `Player X: ${scores.X}`;
+      grandScoreO.innerText = `Player O: ${scores.O}`;
+      grandScoreTies.innerText = `(${scores.Ties} Ties)`;
+
+      if (winner === "TIE") {
+        grandTitle.innerText = "SERIES DRAW!";
+        grandTitle.style.color = "var(--o-color)";
+        grandSub.innerText = `Both players fought honorably to a draw! 🤝✨`;
+        dancerBody.innerHTML = `<circle cx="40" cy="55" r="14" stroke="#ff2a4b" stroke-width="8" fill="none" /><circle cx="60" cy="55" r="14" stroke="#fbbf24" stroke-width="8" fill="none" />`;
+      } else {
+        const winnerLabel = (gameMode === "AI" && winner === aiSymbol) ? "COMPUTER WINS MATCH!" : `PLAYER ${winner} IS CHAMPION!`;
+        grandTitle.innerText = winnerLabel;
+        grandTitle.style.color = winner === 'X' ? 'var(--x-color)' : 'var(--o-color)';
+
+        if (winner === 'X') {
+          dancerBody.innerHTML = `<path d="M30,35 L70,75 M70,35 L30,75" stroke="#ff2a4b" stroke-width="14" stroke-linecap="round" />`;
+        } else {
+          dancerBody.innerHTML = `<circle cx="50" cy="55" r="20" stroke="#fbbf24" stroke-width="12" fill="none" />`;
+        }
+
+        grandSub.innerText = isForcedEnd 
+          ? `Match concluded! Player ${winner} reigns victorious!`
+          : `Series Target Reached! Doing the Grand Victory Dance! 🕺👑`;
+      }
+
+      modalGrandVictory.classList.add('active');
     }
 
     // ==========================================
-    // 7. EVENT LISTENERS & CONTROLLERS
+    // 9. EVENT LISTENERS & NAVIGATION FLOW
     // ==========================================
     cells.forEach(cell => cell.addEventListener('click', handleCellClick));
 
-    // Initial Theme Dropdown Listener
+    // Theme dropdown in First Modal
     if (themeSelectFirst) {
       themeSelectFirst.addEventListener('change', (e) => {
         const themeId = e.target.value;
@@ -1223,37 +1926,69 @@
       });
     }
 
-    // Mode Selection Buttons
+    // Modal 1: Game Mode Selectors -> Open Format Selection Modal
+    let pendingGameMode = "LOCAL";
+
     document.getElementById('btn-select-local').addEventListener('click', () => {
-      gameMode = "LOCAL";
-      labelX.innerText = "PLAYER X";
-      labelO.innerText = "PLAYER O";
-      modeBadge.innerText = "LOCAL MATCH";
-      if (pollInterval) clearInterval(pollInterval);
+      pendingGameMode = "LOCAL";
       modalStart.classList.remove('active');
-      modalLocalStarter.classList.add('active');
+      modalFormat.classList.add('active');
     });
 
     document.getElementById('btn-select-ai').addEventListener('click', () => {
-      if (pollInterval) clearInterval(pollInterval);
+      pendingGameMode = "AI";
       modalStart.classList.remove('active');
-      modalAiSetup.classList.add('active');
+      modalFormat.classList.add('active');
     });
 
     document.getElementById('btn-select-online').addEventListener('click', () => {
-      gameMode = "ONLINE";
-      labelX.innerText = "PLAYER X";
-      labelO.innerText = "PLAYER O";
-      modeBadge.innerText = "ONLINE MATCH";
+      pendingGameMode = "ONLINE";
       modalStart.classList.remove('active');
-      modalOnlineSetup.classList.add('active');
+      modalFormat.classList.add('active');
     });
 
+    // Format Back Button
+    document.getElementById('btn-format-back').addEventListener('click', () => {
+      modalFormat.classList.remove('active');
+      modalStart.classList.add('active');
+    });
+
+    // Modal 1B: Choose Match Format Option Handlers
+    function applyFormatAndProceed(selectedFormat) {
+      matchFormat = selectedFormat;
+      modalFormat.classList.remove('active');
+
+      if (pendingGameMode === "LOCAL") {
+        gameMode = "LOCAL";
+        labelX.innerText = "PLAYER X";
+        labelO.innerText = "PLAYER O";
+        modeBadge.innerText = "LOCAL MATCH";
+        if (pollInterval) clearInterval(pollInterval);
+        resetEntireMatchState();
+        modalLocalStarter.classList.add('active');
+      } else if (pendingGameMode === "AI") {
+        if (pollInterval) clearInterval(pollInterval);
+        modalAiSetup.classList.add('active');
+      } else if (pendingGameMode === "ONLINE") {
+        gameMode = "ONLINE";
+        labelX.innerText = "PLAYER X";
+        labelO.innerText = "PLAYER O";
+        modeBadge.innerText = "ONLINE MATCH";
+        resetEntireMatchState();
+        modalOnlineSetup.classList.add('active');
+      }
+    }
+
+    document.getElementById('btn-format-bo3').addEventListener('click', () => applyFormatAndProceed("BO3"));
+    document.getElementById('btn-format-bo5').addEventListener('click', () => applyFormatAndProceed("BO5"));
+    document.getElementById('btn-format-infinity').addEventListener('click', () => applyFormatAndProceed("INFINITY"));
+
+    // Header Mode Button
     document.getElementById('btn-mode').addEventListener('click', () => {
       modalStart.classList.add('active');
     });
 
-    // AI Setup Controls
+    // AI Difficulty Toggles
     const btnDiffNormal = document.getElementById('btn-diff-normal');
     const btnDiffHard = document.getElementById('btn-diff-hard');
 
@@ -1284,7 +2019,7 @@
       startAiMatch("O");
     });
 
-    // Local Starter Buttons
+    // Local Starter Selection
     document.getElementById('btn-start-x').addEventListener('click', () => {
       modalLocalStarter.classList.remove('active');
       setLocalStarter("X");
@@ -1295,7 +2030,7 @@
       setLocalStarter("O");
     });
 
-    // Theme Selector Modal & Options Handler
+    // Theme Picker Modal
     document.getElementById('btn-theme').addEventListener('click', () => {
       modalTheme.classList.add('active');
     });
@@ -1326,7 +2061,7 @@
             startOnlinePolling();
           }
         })
-        .createGameRoom();
+        .createGameRoom("X", matchFormat);
     });
 
     // Online Join Room
@@ -1366,8 +2101,8 @@
       }
     });
 
-    document.getElementById('btn-victory-next').addEventListener('click', () => {
-      modalVictory.classList.remove('active');
+    document.getElementById('btn-round-next').addEventListener('click', () => {
+      modalRoundVictory.classList.remove('active');
       if (gameMode === "ONLINE") {
         google.script.run.resetMultiplayerRound(roomCode);
       } else {
@@ -1375,10 +2110,10 @@
       }
     });
 
-    // Reset Scores
-    document.getElementById('btn-reset').addEventListener('click', () => {
-      scores.X = 0; scores.O = 0; scores.Ties = 0;
-      updateScoreboard();
+    // Grand Victory Rematch / Menu Actions
+    document.getElementById('btn-grand-rematch').addEventListener('click', () => {
+      modalGrandVictory.classList.remove('active');
+      resetEntireMatchState();
       if (gameMode === "ONLINE") {
         google.script.run.resetMultiplayerScores(roomCode);
       } else if (gameMode === "AI") {
@@ -1388,7 +2123,67 @@
       }
     });
 
-    // Canvas Confetti Engine
+    document.getElementById('btn-grand-menu').addEventListener('click', () => {
+      modalGrandVictory.classList.remove('active');
+      resetEntireMatchState();
+      modalStart.classList.add('active');
+    });
+
+    // ==========================================
+    // 10. END MATCH / FORFEIT CONTROLLER
+    // ==========================================
+    btnEndMatch.addEventListener('click', () => {
+      if (gameMode === "ONLINE") {
+        if (!roomCode) {
+          showToast("No active online room!");
+          return;
+        }
+        if (confirm("Send request to opponent to end the match series?")) {
+          showToast("End match proposal sent to opponent...");
+          google.script.run.requestEndMatch(roomCode, myPlayerSymbol);
+        }
+        return;
+      }
+
+      // Local / AI Mode End Match Confirmation
+      document.getElementById('confirm-score-x').innerText = `Player X: ${scores.X}`;
+      document.getElementById('confirm-score-o').innerText = `Player O: ${scores.O}`;
+      modalConfirmEnd.classList.add('active');
+    });
+
+    document.getElementById('btn-confirm-end-no').addEventListener('click', () => {
+      modalConfirmEnd.classList.remove('active');
+    });
+
+    document.getElementById('btn-confirm-end-yes').addEventListener('click', () => {
+      modalConfirmEnd.classList.remove('active');
+      matchOver = true;
+      isGameActive = false;
+
+      let winner = "TIE";
+      if (scores.X > scores.O) winner = "X";
+      else if (scores.O > scores.X) winner = "O";
+
+      soundGrandWin();
+      launchConfetti();
+      showGrandVictoryModal(winner, true);
+    });
+
+    // Online End Match Proposal Responses
+    document.getElementById('btn-online-end-agree').addEventListener('click', () => {
+      modalOnlineEndRequest.classList.remove('active');
+      google.script.run.respondEndMatch(roomCode, myPlayerSymbol, true);
+    });
+
+    document.getElementById('btn-online-end-decline').addEventListener('click', () => {
+      modalOnlineEndRequest.classList.remove('active');
+      google.script.run.respondEndMatch(roomCode, myPlayerSymbol, false);
+      showToast("You declined the end match request.");
+    });
+
+    // ==========================================
+    // 11. CANVAS CONFETTI ENGINE
+    // ==========================================
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];

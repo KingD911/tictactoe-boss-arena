@@ -1,6 +1,7 @@
 /**
  * Tic-Tac-Toe Arena | Final Boss Edition Backend Architecture
  * Powered by Google Apps Script CacheService for multi-device realtime room sync.
+ * Supports Best of 3, Best of 5, and Infinity Mode series.
  */
 
 function doGet(e) {
@@ -13,9 +14,10 @@ function doGet(e) {
 /**
  * Generates a unique 4-digit room code and initializes a room state in CacheService.
  * @param {string} [initialStarter="X"] - Optional starting player symbol ('X' or 'O').
+ * @param {string} [matchFormat="BO3"] - 'BO3', 'BO5', or 'INFINITY'.
  * @returns {Object} Room initialization response with 4-digit code.
  */
-function createGameRoom(initialStarter) {
+function createGameRoom(initialStarter, matchFormat) {
   const cache = CacheService.getScriptCache();
   let code = "";
   let exists = true;
@@ -29,10 +31,15 @@ function createGameRoom(initialStarter) {
   }
 
   const starterSymbol = (initialStarter === "O") ? "O" : "X";
+  const format = (matchFormat === "BO5" || matchFormat === "INFINITY") ? matchFormat : "BO3";
+  const targetWins = format === "BO3" ? 2 : (format === "BO5" ? 3 : null);
 
   const roomState = {
     code: code,
-    status: "waiting", // 'waiting', 'flipping', 'playing', 'won', 'tie'
+    status: "waiting", // 'waiting', 'flipping', 'playing', 'won', 'tie', 'match_won', 'match_ended'
+    matchFormat: format,
+    targetWins: targetWins,
+    currentRound: 1,
     p1: "X",           // Host is Player X
     p2: null,          // Guest is Player O
     board: ["", "", "", "", "", "", "", "", ""],
@@ -41,6 +48,8 @@ function createGameRoom(initialStarter) {
     scores: { X: 0, O: 0, Ties: 0 },
     winner: null,
     winningLine: [],
+    matchWinner: null,
+    endMatchRequest: null, // { requestedBy: 'X'|'O', status: 'pending'|'agreed'|'declined' }
     coinResult: null,
     lastUpdate: Date.now()
   };
@@ -180,10 +189,17 @@ function makeMultiplayerMove(code, playerSymbol, index) {
   }
 
   if (roundWon) {
-    roomState.status = "won";
     roomState.winner = playerSymbol;
     roomState.winningLine = winningLine;
     roomState.scores[playerSymbol]++;
+
+    // Check if match win target is reached
+    if (roomState.targetWins && roomState.scores[playerSymbol] >= roomState.targetWins) {
+      roomState.status = "match_won";
+      roomState.matchWinner = playerSymbol;
+    } else {
+      roomState.status = "won";
+    }
   } else if (!roomState.board.includes("")) {
     roomState.status = "tie";
     roomState.scores.Ties++;
@@ -218,6 +234,7 @@ function resetMultiplayerRound(code) {
   roomState.turn = nextStarter;
   roomState.winner = null;
   roomState.winningLine = [];
+  roomState.currentRound = (roomState.currentRound || 1) + 1;
   roomState.lastUpdate = Date.now();
 
   cache.put("ROOM_" + code, JSON.stringify(roomState), 21600);
@@ -225,7 +242,81 @@ function resetMultiplayerRound(code) {
 }
 
 /**
- * Resets score & board state.
+ * Request to end an online match in Infinity format.
+ */
+function requestEndMatch(code, playerSymbol) {
+  const cache = CacheService.getScriptCache();
+  const rawData = cache.get("ROOM_" + code);
+
+  if (!rawData) return { success: false, message: "Room not found" };
+
+  let roomState = JSON.parse(rawData);
+  roomState.endMatchRequest = {
+    requestedBy: playerSymbol,
+    status: "pending",
+    timestamp: Date.now()
+  };
+  roomState.lastUpdate = Date.now();
+
+  cache.put("ROOM_" + code, JSON.stringify(roomState), 21600);
+  return { success: true, roomState: roomState };
+}
+
+/**
+ * Respond to an end match proposal.
+ */
+function respondEndMatch(code, playerSymbol, agreed) {
+  const cache = CacheService.getScriptCache();
+  const rawData = cache.get("ROOM_" + code);
+
+  if (!rawData) return { success: false, message: "Room not found" };
+
+  let roomState = JSON.parse(rawData);
+
+  if (agreed) {
+    roomState.status = "match_ended";
+    if (roomState.scores.X > roomState.scores.O) {
+      roomState.matchWinner = "X";
+    } else if (roomState.scores.O > roomState.scores.X) {
+      roomState.matchWinner = "O";
+    } else {
+      roomState.matchWinner = "TIE";
+    }
+    roomState.endMatchRequest = {
+      requestedBy: playerSymbol,
+      status: "agreed"
+    };
+  } else {
+    roomState.endMatchRequest = {
+      requestedBy: playerSymbol,
+      status: "declined"
+    };
+  }
+
+  roomState.lastUpdate = Date.now();
+  cache.put("ROOM_" + code, JSON.stringify(roomState), 21600);
+  return { success: true, roomState: roomState };
+}
+
+/**
+ * Clear end match request state after notification has been displayed.
+ */
+function clearEndMatchRequest(code) {
+  const cache = CacheService.getScriptCache();
+  const rawData = cache.get("ROOM_" + code);
+
+  if (!rawData) return { success: false };
+
+  let roomState = JSON.parse(rawData);
+  roomState.endMatchRequest = null;
+  roomState.lastUpdate = Date.now();
+
+  cache.put("ROOM_" + code, JSON.stringify(roomState), 21600);
+  return { success: true, roomState: roomState };
+}
+
+/**
+ * Resets score & board state for a new series.
  */
 function resetMultiplayerScores(code) {
   const cache = CacheService.getScriptCache();
@@ -243,6 +334,9 @@ function resetMultiplayerScores(code) {
   roomState.turn = starter;
   roomState.winner = null;
   roomState.winningLine = [];
+  roomState.matchWinner = null;
+  roomState.endMatchRequest = null;
+  roomState.currentRound = 1;
   roomState.lastUpdate = Date.now();
 
   cache.put("ROOM_" + code, JSON.stringify(roomState), 21600);
