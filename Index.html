@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +13,8 @@
        ARENA THEME SCHEMES
        ========================================== */
     /* 1. Red Arena (Default) */
-    :root, [data-theme="red"] {
+    :root,
+    [data-theme="red"] {
       --bg-gradient: radial-gradient(circle at 50% 20%, #450a0a 0%, #1a0303 65%, #050000 100%);
       --card-bg: rgba(28, 8, 12, 0.88);
       --card-border: rgba(239, 68, 68, 0.35);
@@ -105,8 +107,15 @@
     }
 
     @keyframes pulseBg {
-      0% { opacity: 0.3; transform: scale(0.98); }
-      100% { opacity: 0.8; transform: scale(1.05); }
+      0% {
+        opacity: 0.3;
+        transform: scale(0.98);
+      }
+
+      100% {
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
     }
 
     .game-container {
@@ -271,8 +280,13 @@
       text-overflow: ellipsis;
     }
 
-    .score-card.player-x .score-label { color: var(--x-color); }
-    .score-card.player-o .score-label { color: var(--o-color); }
+    .score-card.player-x .score-label {
+      color: var(--x-color);
+    }
+
+    .score-card.player-o .score-label {
+      color: var(--o-color);
+    }
 
     .score-value {
       font-size: 1.6rem;
@@ -325,7 +339,9 @@
       transform: scale(0.98);
     }
 
-    .cell.taken { cursor: default; }
+    .cell.taken {
+      cursor: default;
+    }
 
     .cell.x {
       color: var(--x-color);
@@ -347,14 +363,29 @@
     }
 
     @keyframes cellDance {
-      0% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-8px) rotate(-5deg) scale(1.06); }
-      100% { transform: translateY(0) rotate(5deg) scale(1.02); }
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(-5deg) scale(1.06);
+      }
+
+      100% {
+        transform: translateY(0) rotate(5deg) scale(1.02);
+      }
     }
 
     @keyframes popIn {
-      0% { transform: scale(0.3); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     /* Controls Grid */
@@ -427,7 +458,7 @@
       padding: 10px;
       border-radius: 12px;
       border: 2px solid var(--card-border);
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
       color: var(--text-muted);
       font-weight: 700;
       cursor: pointer;
@@ -444,8 +475,10 @@
     /* Modal Overlay System */
     .modal-overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(12px);
       display: flex;
@@ -683,8 +716,13 @@
     }
 
     @keyframes danceGroove {
-      0% { transform: translateY(0) rotate(-12deg) scale(1); }
-      100% { transform: translateY(-16px) rotate(12deg) scale(1.12); }
+      0% {
+        transform: translateY(0) rotate(-12deg) scale(1);
+      }
+
+      100% {
+        transform: translateY(-16px) rotate(12deg) scale(1.12);
+      }
     }
 
     .grand-badge {
@@ -714,8 +752,10 @@
 
     #confetti-canvas {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 99;
     }
@@ -746,6 +786,7 @@
     }
   </style>
 </head>
+
 <body data-theme="red">
 
   <canvas id="confetti-canvas"></canvas>
@@ -755,7 +796,7 @@
     <header>
       <h1>TIC TAC TOE</h1>
       <div class="boss-subtitle">⚡ Final Boss Arena ⚡</div>
-      
+
       <!-- Badges Bar -->
       <div class="badges-bar">
         <div class="mode-badge" id="mode-badge">LOCAL MATCH</div>
@@ -827,7 +868,8 @@
   <div class="modal-overlay active" id="modal-start">
     <div class="modal-card">
       <div class="modal-title">CHOOSE GAME MODE</div>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Select local, computer AI, or online match!</p>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Select local, computer AI, or online
+        match!</p>
 
       <!-- Theme Dropdown inside the very first Popup -->
       <div class="theme-select-container">
@@ -839,9 +881,13 @@
         </select>
       </div>
 
-      <button class="btn btn-primary" id="btn-select-local" style="width: 100%; margin-bottom: 10px; padding: 13px;">👥 Local Match</button>
-      <button class="btn btn-primary" id="btn-select-ai" style="width: 100%; margin-bottom: 10px; padding: 13px; background: linear-gradient(135deg, #a855f7, #6b21a8);">🤖 Against Computer</button>
-      <button class="btn btn-secondary" id="btn-select-online" style="width: 100%; padding: 13px; border-color: var(--o-color); color: #fff;">🌐 Online Match</button>
+      <button class="btn btn-primary" id="btn-select-local" style="width: 100%; margin-bottom: 10px; padding: 13px;">👥
+        Local Match</button>
+      <button class="btn btn-primary" id="btn-select-ai"
+        style="width: 100%; margin-bottom: 10px; padding: 13px; background: linear-gradient(135deg, #a855f7, #6b21a8);">🤖
+        Against Computer</button>
+      <button class="btn btn-secondary" id="btn-select-online"
+        style="width: 100%; padding: 13px; border-color: var(--o-color); color: #fff;">🌐 Online Match</button>
     </div>
   </div>
 
@@ -849,7 +895,8 @@
   <div class="modal-overlay" id="modal-format">
     <div class="modal-card">
       <div class="modal-title">CHOOSE MATCH FORMAT</div>
-      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 10px;">Select series length and victory rules:</p>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 10px;">Select series length and victory
+        rules:</p>
 
       <div class="format-grid">
         <div class="format-card" id="btn-format-bo3">
@@ -877,7 +924,8 @@
         </div>
       </div>
 
-      <button class="btn btn-secondary" id="btn-format-back" style="width: 100%; padding: 12px;">← Back to Modes</button>
+      <button class="btn btn-secondary" id="btn-format-back" style="width: 100%; padding: 12px;">← Back to
+        Modes</button>
     </div>
   </div>
 
@@ -885,10 +933,13 @@
   <div class="modal-overlay" id="modal-local-starter">
     <div class="modal-card">
       <div class="modal-title">WHO STARTS ROUND 1?</div>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">The starting player will automatically alternate each subsequent round!</p>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">The starting player will
+        automatically alternate each subsequent round!</p>
       <div style="display: flex; gap: 12px;">
         <button class="btn btn-primary" id="btn-start-x" style="padding: 16px; flex: 1;">Player X Starts</button>
-        <button class="btn btn-primary" id="btn-start-o" style="background: linear-gradient(135deg, #d97706, #b45309); padding: 16px; flex: 1;">Player O Starts</button>
+        <button class="btn btn-primary" id="btn-start-o"
+          style="background: linear-gradient(135deg, #d97706, #b45309); padding: 16px; flex: 1;">Player O
+          Starts</button>
       </div>
     </div>
   </div>
@@ -898,7 +949,7 @@
     <div class="modal-card">
       <div class="modal-title">VS COMPUTER</div>
       <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">Select AI Difficulty Level:</p>
-      
+
       <div class="btn-toggle-group">
         <button class="btn-toggle active" id="btn-diff-normal">Normal 🎯</button>
         <button class="btn-toggle" id="btn-diff-hard">Hard 🧠 (Unbeatable)</button>
@@ -920,10 +971,12 @@
   <div class="modal-overlay" id="modal-online-setup">
     <div class="modal-card">
       <div class="modal-title">ONLINE MATCH</div>
-      <p style="color: var(--text-muted); font-size: 0.88rem;">Create a 4-digit room code or enter your friend's code.</p>
-      
-      <button class="btn btn-primary" id="btn-create-room" style="width: 100%; margin: 16px 0 10px 0; padding: 14px;">➕ Host New Room</button>
-      
+      <p style="color: var(--text-muted); font-size: 0.88rem;">Create a 4-digit room code or enter your friend's code.
+      </p>
+
+      <button class="btn btn-primary" id="btn-create-room" style="width: 100%; margin: 16px 0 10px 0; padding: 14px;">➕
+        Host New Room</button>
+
       <div style="margin: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
         <input type="text" id="join-code-input" class="input-code" maxlength="4" placeholder="4829">
         <button class="btn btn-secondary" id="btn-join-room" style="width: 100%; padding: 14px;">⚡ Join Room</button>
@@ -935,8 +988,11 @@
   <div class="modal-overlay" id="modal-waiting">
     <div class="modal-card">
       <div class="modal-title">YOUR ROOM CODE</div>
-      <div id="display-room-code" style="font-size: 3rem; font-weight: 700; color: var(--o-color); letter-spacing: 10px; margin: 10px 0;">----</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Share this code with your opponent. Waiting for player to connect...</p>
+      <div id="display-room-code"
+        style="font-size: 3rem; font-weight: 700; color: var(--o-color); letter-spacing: 10px; margin: 10px 0;">----
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Share this code with your opponent. Waiting for player to
+        connect...</p>
     </div>
   </div>
 
@@ -945,7 +1001,7 @@
     <div class="modal-card">
       <div class="modal-title" id="cointoss-title">FLIPPING COIN...</div>
       <p style="color: var(--text-muted); font-size: 0.85rem;">Determining who takes the first move!</p>
-      
+
       <div class="coin-stage">
         <div class="coin" id="coin-element">
           <div class="coin-face coin-x">X</div>
@@ -962,7 +1018,7 @@
     <div class="modal-card">
       <div class="modal-title">SELECT ARENA THEME</div>
       <p style="color: var(--text-muted); font-size: 0.88rem;">Choose your visual style!</p>
-      
+
       <div class="theme-grid">
         <div class="theme-option red-theme" data-theme-id="red">
           <span>🔴 Red Arena</span>
@@ -977,7 +1033,7 @@
           <span>Stealth Platinum</span>
         </div>
       </div>
-      
+
       <button class="btn btn-secondary" id="btn-theme-close" style="width: 100%; margin-top: 16px;">Close</button>
     </div>
   </div>
@@ -986,7 +1042,7 @@
   <div class="modal-overlay" id="modal-round-victory">
     <div class="modal-card">
       <div class="modal-title" id="round-victory-title">ROUND 1 WON!</div>
-      
+
       <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
         <svg class="dancer-svg" viewBox="0 0 100 100" style="width: 80px; height: 80px;">
           <g id="round-dancer-body"></g>
@@ -1002,7 +1058,8 @@
         <span style="color: var(--o-color);" id="round-breakdown-o">Player O: 0</span>
       </div>
 
-      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 16px;" id="round-victory-sub">Series target: First to 2 wins</p>
+      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 16px;" id="round-victory-sub">Series target:
+        First to 2 wins</p>
       <button class="btn btn-primary" id="btn-round-next" style="width: 100%; padding: 14px;">Next Round ⚔️</button>
     </div>
   </div>
@@ -1012,10 +1069,11 @@
     <div class="modal-card">
       <div class="grand-badge">👑 SERIES CHAMPION 👑</div>
       <div class="modal-title" id="grand-victory-title" style="font-size: 1.7rem; color: #fbbf24;">PLAYER X WINS!</div>
-      
+
       <div style="height: 120px; display: flex; justify-content: center; align-items: center; position: relative;">
         <svg class="dancer-svg" viewBox="0 0 100 100">
-          <path d="M35,22 L42,30 L50,18 L58,30 L65,22 L62,35 L38,35 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+          <path d="M35,22 L42,30 L50,18 L58,30 L65,22 L62,35 L38,35 Z" fill="#fbbf24" stroke="#d97706"
+            stroke-width="2" />
           <g id="grand-dancer-body"></g>
           <circle cx="42" cy="48" r="3" fill="#ffffff" />
           <circle cx="58" cy="48" r="3" fill="#ffffff" />
@@ -1030,8 +1088,9 @@
         <span style="color: var(--text-muted);" id="grand-score-ties">(0 Ties)</span>
       </div>
 
-      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 18px;" id="grand-victory-sub">Doing the Grand Champion Victory Dance! 🕺✨</p>
-      
+      <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 18px;" id="grand-victory-sub">Doing the Grand
+        Champion Victory Dance! 🕺✨</p>
+
       <div style="display: flex; gap: 10px;">
         <button class="btn btn-primary" id="btn-grand-rematch" style="flex: 1; padding: 13px;">⚔️ Rematch</button>
         <button class="btn btn-secondary" id="btn-grand-menu" style="flex: 1; padding: 13px;">🎮 Main Menu</button>
@@ -1043,8 +1102,9 @@
   <div class="modal-overlay" id="modal-confirm-end">
     <div class="modal-card">
       <div class="modal-title">🛑 END MATCH SERIES?</div>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">Are you sure you want to conclude this match? The final series scores will be evaluated to declare the champion!</p>
-      
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">Are you sure you want to conclude
+        this match? The final series scores will be evaluated to declare the champion!</p>
+
       <div class="score-breakdown">
         <span style="color: var(--x-color);" id="confirm-score-x">X: 0</span>
         <span style="color: var(--text-muted);">|</span>
@@ -1062,8 +1122,9 @@
   <div class="modal-overlay" id="modal-online-end-request">
     <div class="modal-card">
       <div class="modal-title">🛑 END MATCH PROPOSAL</div>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Your opponent has requested to conclude the series and tally the final score!</p>
-      
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">Your opponent has requested to
+        conclude the series and tally the final score!</p>
+
       <div class="score-breakdown">
         <span style="color: var(--x-color);" id="online-req-score-x">Player X: 0</span>
         <span style="color: var(--text-muted);">|</span>
@@ -1088,11 +1149,11 @@
       window.google = {
         script: {
           run: {
-            withSuccessHandler: function(fn) {
+            withSuccessHandler: function (fn) {
               this._successHandler = fn;
               return this;
             },
-            createGameRoom: function(initialStarter, matchFormat) {
+            createGameRoom: function (initialStarter, matchFormat) {
               const code = Math.floor(1000 + Math.random() * 9000).toString();
               const starter = initialStarter === "O" ? "O" : "X";
               const format = (matchFormat === "BO5" || matchFormat === "INFINITY") ? matchFormat : "BO3";
@@ -1105,7 +1166,7 @@
                 currentRound: 1,
                 p1: "X",
                 p2: null,
-                board: ["","","","","","","","",""],
+                board: ["", "", "", "", "", "", "", "", ""],
                 starter: starter,
                 turn: starter,
                 scores: { X: 0, O: 0, Ties: 0 },
@@ -1120,7 +1181,7 @@
                 setTimeout(() => this._successHandler({ success: true, code: code, playerSymbol: "X", roomState: room }), 50);
               }
             },
-            joinGameRoom: function(code) {
+            joinGameRoom: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) {
                 if (this._successHandler) setTimeout(() => this._successHandler({ success: false, message: "Room not found in local mock!" }), 50);
@@ -1136,7 +1197,7 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) setTimeout(() => this._successHandler({ success: true, code: code, playerSymbol: "O", roomState: room }), 50);
             },
-            startPlaying: function(code) {
+            startPlaying: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (raw) {
                 const room = JSON.parse(raw);
@@ -1145,18 +1206,18 @@
                 if (this._successHandler) this._successHandler({ success: true, roomState: room });
               }
             },
-            getGameRoomState: function(code) {
+            getGameRoomState: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (raw && this._successHandler) {
                 this._successHandler({ success: true, roomState: JSON.parse(raw) });
               }
             },
-            makeMultiplayerMove: function(code, symbol, index) {
+            makeMultiplayerMove: function (code, symbol, index) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
               room.board[index] = symbol;
-              const combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+              const combos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
               let won = false; let line = [];
               for (let c of combos) {
                 if (room.board[c[0]] && room.board[c[0]] === room.board[c[1]] && room.board[c[0]] === room.board[c[2]]) {
@@ -1182,12 +1243,12 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) this._successHandler({ success: true, roomState: room });
             },
-            resetMultiplayerRound: function(code) {
+            resetMultiplayerRound: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
               const next = room.starter === "X" ? "O" : "X";
-              room.board = ["","","","","","","","",""];
+              room.board = ["", "", "", "", "", "", "", "", ""];
               room.status = "playing";
               room.starter = next;
               room.turn = next;
@@ -1197,7 +1258,7 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) this._successHandler({ success: true, roomState: room });
             },
-            requestEndMatch: function(code, symbol) {
+            requestEndMatch: function (code, symbol) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
@@ -1205,7 +1266,7 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) this._successHandler({ success: true, roomState: room });
             },
-            respondEndMatch: function(code, symbol, agreed) {
+            respondEndMatch: function (code, symbol, agreed) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
@@ -1219,7 +1280,7 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) this._successHandler({ success: true, roomState: room });
             },
-            clearEndMatchRequest: function(code) {
+            clearEndMatchRequest: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
@@ -1227,12 +1288,12 @@
               sessionStorage.setItem("ROOM_" + code, JSON.stringify(room));
               if (this._successHandler) this._successHandler({ success: true, roomState: room });
             },
-            resetMultiplayerScores: function(code) {
+            resetMultiplayerScores: function (code) {
               const raw = sessionStorage.getItem("ROOM_" + code);
               if (!raw) return;
               const room = JSON.parse(raw);
               room.scores = { X: 0, O: 0, Ties: 0 };
-              room.board = ["","","","","","","","",""];
+              room.board = ["", "", "", "", "", "", "", "", ""];
               room.status = "playing";
               room.winner = null;
               room.matchWinner = null;
@@ -1271,8 +1332,8 @@
     function soundO() { playTone(587.33, 'sine', 0.12); }
     function soundTie() { playTone(180, 'sawtooth', 0.35); }
     function soundCoin() {
-      for(let i = 0; i < 8; i++) {
-        setTimeout(() => playTone(600 + (i*80), 'triangle', 0.08), i * 120);
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => playTone(600 + (i * 80), 'triangle', 0.08), i * 120);
       }
     }
     function soundWin() {
@@ -1450,7 +1511,7 @@
 
       if (gameMode === "ONLINE") {
         if (!isGameActive || currentPlayer !== myPlayerSymbol || board[index] !== "") return;
-        
+
         google.script.run
           .withSuccessHandler((res) => {
             if (res.success) updateUIFromRoomState(res.roomState);
@@ -1565,7 +1626,7 @@
       board = ["", "", "", "", "", "", "", "", ""];
       isGameActive = true;
       cells.forEach(cell => { cell.innerText = ""; cell.className = "cell"; });
-      
+
       updateFormatDisplay();
       updateTurnIndicator();
 
@@ -1776,7 +1837,7 @@
       if (state.status === "flipping" && (modalWaiting.classList.contains('active') || modalOnlineSetup.classList.contains('active'))) {
         modalWaiting.classList.remove('active');
         modalOnlineSetup.classList.remove('active');
-        
+
         triggerCoinTossAnimation(state.starter, () => {
           google.script.run.startPlaying(roomCode);
           isGameActive = true;
@@ -1905,7 +1966,7 @@
           dancerBody.innerHTML = `<circle cx="50" cy="55" r="20" stroke="#fbbf24" stroke-width="12" fill="none" />`;
         }
 
-        grandSub.innerText = isForcedEnd 
+        grandSub.innerText = isForcedEnd
           ? `Match concluded! Player ${winner} reigns victorious!`
           : `Series Target Reached! Doing the Grand Victory Dance! 🕺👑`;
       }
@@ -2078,7 +2139,7 @@
             roomCode = res.code;
             myPlayerSymbol = "O";
             modalOnlineSetup.classList.remove('active');
-            
+
             triggerCoinTossAnimation(res.roomState.starter, () => {
               google.script.run.startPlaying(roomCode);
               isGameActive = true;
@@ -2227,4 +2288,5 @@
     resizeCanvas();
   </script>
 </body>
+
 </html>
